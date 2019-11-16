@@ -1,25 +1,21 @@
-<html>
-    <head>
-        <title>ema & Django Girls blog</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">ema & Django Girls Blog</a></h1>
-        </div>
-        {% for post in posts_before %}
-    		<div>
-        		<p> publicado from now: {{ post.published_date }}</p>
-        		<h2><a href="">{{ post.title }}</a></h2>
-        		<p>{{ post.text|linebreaksbr }}</p>
-    		</div>
-		{% endfor %}
-		{% for post in posts_after %}
-    		<div>
-        		<p> publicado from next days: {{ post.published_date }}</p>
-        		<h2><a href="">{{ post.title }}</a></h2>
-        		<p>{{ post.text|linebreaksbr }}</p>
-    		</div>
-		{% endfor %}
-        
-    </body>
-</html>
+    	{% extends 'blog/base.html' %}
+    	{% block content %}
+        	{% for post in posts_before %}
+        		<div class="post">
+        			<div class="date">
+        				<p> publicado from now: {{ post.published_date }}</p>
+        			</div>
+        			<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        			<p>{{ post.text|linebreaksbr }}</p>
+    			</div>
+    		{% endfor %}
+			{% for post in posts_after %}
+				<div class="post">
+					<div class="date">
+						<p> publicado from next days: {{ post.published_date }}</p>
+					</div>
+					<h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+					<p>{{ post.text|linebreaksbr }}</p>
+				</div>
+			{% endfor %}
+		{% endblock %}
